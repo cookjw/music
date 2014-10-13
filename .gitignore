@@ -1,0 +1,11 @@
+# Things that should not be in version control---
+
+
+# Python bytecode files
+*.pyc
+
+# local output
+exercise_parameters.txt
+
+# not ready yet:
+setoperations.py

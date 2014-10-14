@@ -22,16 +22,12 @@ def score_order(ensemble, convention)
     if indices.include?(nil)
       raise EnsembleError, "You have un-convention-al instruments!"
     end  
-    # puts "indices: " + indices.to_s    
-    # puts "indices.select...:" + indices.select{|index| ensemble.include?(convention[index])}.to_s
     ordered_ensemble = indices.select{|index| ensemble.include?(
                                        convention[index])}.
                                        map{|index| convention[index]}
     if ensemble.to_set == ordered_ensemble.to_set
       return ordered_ensemble        
     else
-      # puts "ensemble: " + ensemble.to_s
-      # puts "ordered_ensemble: " + ordered_ensemble.to_s
       raise EnsembleError,
         "Instrument set somehow got changed during reordering."    
     end

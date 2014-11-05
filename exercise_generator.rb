@@ -9,7 +9,7 @@
 # each new exercise: the intention is that the composer be forced to
 # confront novel compositional situations outside of his or her 
 # "typical" experience, and thereby be stimulated to develop a 
-# larger compostional vocabulary and experience creative growth.
+# larger compositional vocabulary and experience creative growth.
 
 require 'set'
 

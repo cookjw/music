@@ -1,10 +1,10 @@
-#CURRENT_STATUS: works, I guess, but really needs cleanup (esp. DRY).
+#CURRENT_STATUS: works, I guess, but needs cleanup (esp. DRY).
 
 
 #This is an implementation of the Forte algorithm for computing the
-#prime form of a pitch-class set. See
-#http://composertools.com/Theory/PCSets/PCSets3.htm
-#or one of any number of similar sites.
+#prime form of a pitch-class set. See e.g.
+#http://composertools.com/Theory/PCSets/PCSets3.htm.
+
 
 
 def remove_duplicates(list): # Shouldn't this be built in?
@@ -65,7 +65,7 @@ def find_prime_form(pc_set):
                                                     blah in
                                                     candidates])])
     n = 2
-    while len(minimum_distance_list) > 1:
+    while len(minimum_distance_list) > 1: # did similar thing above, should be in separate function:
         minimum_distance_list = remove_duplicates([candidate for
                                                    candidate in
                                                    minimum_distance_list

@@ -1,4 +1,4 @@
-#CURRENT_STATUS: works, I guess, but needs cleanup (esp. DRY).
+#CURRENT_STATUS: seems to work.
 
 
 #This is an implementation of the Forte algorithm for computing the
@@ -19,6 +19,24 @@ def rotate(pc_set, number): # "pc_set" is actually a list
     
 def distance(pc_set):
     return (pc_set[-1] - pc_set[0]) % 12
+    
+def tiebreaker(candidate_list, cardinality):
+    n = 2
+    list = candidate_list
+    while len(list) > 1:
+        list = remove_duplicates([candidate for candidate in 
+                                    list if distance(
+                                    candidate[:n]
+                                    )
+                                    == min(
+                                    [distance(pc_set[:n]) for 
+                                     pc_set in list])])
+        n += 1
+        if n > cardinality: 
+            raise Exception(
+            "the variable n has gotten larger than it was supposed to."
+            )
+    return list[0]     
 
 def find_normal_form(pc_set):
     pc_set = sorted(remove_duplicates(pc_set))
@@ -33,24 +51,7 @@ def find_normal_form(pc_set):
         normal_form = minimum_distance_list[0]
         
     else:
-        n = 2
-        while len(minimum_distance_list) > 1:
-            minimum_distance_list = remove_duplicates([rotation for
-                                                       rotation in
-                                                       minimum_distance_list
-                                                       if distance(
-                                                       rotation[:n]) ==
-                                                       min(
-                                                      [distance(pc_set[:n])
-                                                       for pc_set in
-                                                       minimum_distance_list]
-                                                       )])                         
-            n += 1            
-            if n > len(pc_set):
-                raise Exception(
-                "the variable n has gotten larger than it was supposed to."
-                )            
-        normal_form = minimum_distance_list[0]
+        normal_form = tiebreaker(minimum_distance_list, len(pc_set))
     normal_form_from_zero = [(x - normal_form[0]) % 12 for x in normal_form]
     return normal_form_from_zero    
         
@@ -61,26 +62,10 @@ def find_prime_form(pc_set):
     minimum_distance_list = remove_duplicates([candidate for candidate in
                                                candidates if
                                                distance(candidate) == 
-                                               min([distance(blah) for
-                                                    blah in
+                                               min([distance(cand) for
+                                                    cand in
                                                     candidates])])
-    n = 2
-    while len(minimum_distance_list) > 1: # did similar thing above, should be in separate function:
-        minimum_distance_list = remove_duplicates([candidate for
-                                                   candidate in
-                                                   minimum_distance_list
-                                                   if distance(
-                                                   candidate[:n])
-                                                   == min(
-                                                  [distance(pc_set[:n]) for
-                                                   pc_set in
-                                                   minimum_distance_list])])
-        n += 1
-        if n > len(pc_set):
-            raise Exception(
-            "the variable n has gotten larger than it was supposed to."
-            )
-    prime_form = minimum_distance_list[0]
+    prime_form = tiebreaker(minimum_distance_list, len(pc_set))
     return prime_form
 
 # print find_prime_form([0,5,6]) 
@@ -88,6 +73,9 @@ def find_prime_form(pc_set):
 # print find_prime_form([2,4,5,7,9])   
     
 # print find_normal_form([0,7,6])
-        
+
+
+
+
             
     

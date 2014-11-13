@@ -6,6 +6,7 @@
 
 # local output
 exercise_parameters.txt
+*.txt
 
 # not ready yet:
 setoperations.py

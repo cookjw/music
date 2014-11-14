@@ -13,6 +13,8 @@
 # --- if off, do nothing
 # --- if on, copy
 
+from collections import Counter
+
 f = open("webern_op5_no4_simultaneities.txt", 'r')
 
 file = f.read()
@@ -35,7 +37,7 @@ for character in file:
 
 types = [item for item in copystring.split(' ') if item]
 
-occurences = {type: types.count(type) for type in types}
+occurences = Counter(types)
 
 print occurences
 

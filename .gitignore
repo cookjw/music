@@ -6,7 +6,9 @@
 
 # local output
 exercise_parameters.txt
-*.txt
+
 
 # not ready yet:
 setoperations.py
+enumerate_set_types.py
+chordstats.py

@@ -37,9 +37,9 @@ for character in file:
 
 types = [item for item in copystring.split(' ') if item]
 
-occurences = Counter(types)
+occurrences = Counter(types)
 
-print occurences
+print occurrences
 
 
 

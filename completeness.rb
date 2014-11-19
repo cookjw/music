@@ -18,23 +18,36 @@ def complete?(collection)
   end
   for pc in (0...12)
     unless all_reachable_by_step.include?(pc)
+      puts "unreachable: " + pc.to_s
       return false
     end
   end
   return true
 end
 
-print complete?([0,3,7])
+# print complete?([0,3,7])
 
-print "\n"
+# print "\n"
 
-print complete?([0,2,7])
+# print complete?([0,2,7])
 
-print "\n"
+# print "\n"
 
-print complete?([0,1,6])
+# print complete?([0,1,6])
 
-print "\n"
+# print "\n"
+
+puts "Enter pcs in set, separated by commas. \n"
+
+input = gets.chomp
+
+collection = input.split(",").map {|pc| pc.to_i}
+
+if complete?(collection)
+  puts "Complete."
+else
+  puts "Not complete."
+end
 
 
 

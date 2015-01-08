@@ -22,21 +22,21 @@ def is_complete(collection):
     
     
     
-    
+if __name__ == '__main__':    
 # print is_complete([0,3,7])
 
 # print is_complete([0,2,7])
 
 # print is_complete([0,1,6])
 
-# input = raw_input("Enter pcs in set, separated by commas. \n")
+    input = raw_input("Enter pcs in set, separated by commas. \n")
 
-# collection = [int(pc) for pc in input.split(",")]
+    collection = [int(pc) for pc in input.split(",")]
                             
-# if is_complete(collection):
-    # print "Complete."
+    if is_complete(collection):
+        print "Complete."
 
-# else:
-    # print "Not complete."    
+    else:
+        print "Not complete."    
 
     

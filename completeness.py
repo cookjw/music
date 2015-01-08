@@ -14,10 +14,13 @@ def is_complete(collection):
     all_reachable_by_step = []
     for pc in collection:
         all_reachable_by_step += reachable_by_step(pc)
-    for pc in range(12):
-        if not pc in all_reachable_by_step:
-            print "unreachable: " + str(pc)
-            return False
+    unreachable = [pc for pc in range(12) if not pc in all_reachable_by_step]
+    if unreachable:
+        unreachable_string = str(unreachable[0])
+        for pc in unreachable[1:]:
+            unreachable_string += ", " + str(pc)
+        print "unreachable: " + unreachable_string
+        return False
     return True   
     
     

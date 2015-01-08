@@ -29,13 +29,27 @@ def dissonance_score(set, triad):
                 score += 2
         return score
     elif not find_prime_form(triad) == [0,3,7]:
-        raise Exception("second argument must be a triad (type [0,3,7])")
+        raise Exception("second argument must be a triad (type [037])")
     else:
         raise Exception("harmonically incomplete set")  
 
-print dissonance_score({7,11,2}, {0,4,7})       
+if __name__ == "__main__":
+    input_set = raw_input(
+    """
+    Enter a pc set (integers mod 12, separated by commas).
+    Set must be harmonically complete, i.e. every chromatic pc
+    must within an interval of <= 2 of some pc in the set.
+    """
+    )
+    input_triad = raw_input(
+    "Enter a triad (in form of pc set, e.g. 0,4,7 for C major) \n"
+    )
+    pc_set = set([int(pc) for pc in input_set.split(",")])
+    triad = set([int(pc) for pc in input_triad.split(",")])
+    
+    print "dissonance score: " + str(dissonance_score(pc_set, triad))
+    
 
-print dissonance_score({7,11,4}, {0,4,7}) 
 
 
 

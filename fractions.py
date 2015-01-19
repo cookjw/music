@@ -1,5 +1,5 @@
 class Fraction:
-    def __init__(self, numerator, denominator):
+    def __init__(self, numerator, denominator=1):
         self.numerator = numerator
         self.denominator = denominator        
         self.decimal = float(self.numerator / self.denominator)

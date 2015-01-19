@@ -4,6 +4,7 @@ from fractions import Fraction
 class FractionTest(unittest.TestCase):
     def test_display(self):
         self.assertEqual(str(Fraction(3,4)), "3/4")
+        self.assertEqual(str(Fraction(3)), "3")
         
     def test_comparison(self):
         x = Fraction(1,2)

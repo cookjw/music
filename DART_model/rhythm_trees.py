@@ -10,10 +10,7 @@ class Node:
         self.direction = direction
         self.children = children
         
-class Event:
-    def __init__(self):
-        pass
-        
+
         
         
     

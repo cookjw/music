@@ -9,9 +9,23 @@ class Note:
             self.lines = lines
         else:
             self.lines = [lines]
+        for line in self.lines:
+            line.append(self)
+        self.onset_time = onset_time
         self.duration = duration
         self.pitch_class = pitch_class
         self.pitch = pitch
+        self.instrument = instrument
+        
+    def __repr__(self):
+        return "{0} : onset {1}, duration {2}".format(
+            onset_time, duration
+            )
+            
+    def insert_into_line(self, line):
+        line.append(self)
+        self.lines.append(line)
+        
         
         
 class PitchClass:

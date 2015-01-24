@@ -16,3 +16,10 @@ def get_onset_times(durational_values_list):
         onset_times.append(onset_times[-1] + duration)
     return onset_times
 
+
+    
+    
+if __name__ == '__main__':
+    input = raw_input("Enter a list of durational values. \n")
+    
+        

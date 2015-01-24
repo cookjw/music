@@ -18,7 +18,7 @@ function copy(content){
 
 function businessLogic(input){ // this will eventually be findPrimeForm(set)
     input = input.split(",")
-    return [0]
+    return input[0]
     
 }
 

@@ -8,22 +8,33 @@ function removeDuplicates(list){
             new_list.push(item);        
         }
     }
-    return new_list
+    return new_list;
 }
 
-function copy(content){
-    var j = document.getElementById("output");
-    j.value = content;    
+// function copy(content){
+    // var j = document.getElementById("output");
+    // j.value = content;    
+// }
+
+function rotate(pcSet, number){
+    return pcSet.slice(number).concat(pcSet.slice(0, number))
 }
 
-function businessLogic(input){ // this will eventually be findPrimeForm(set)
-    input = input.split(",")
-    return input[0]
-    
+function prepare(input){ 
+    inputArray = input.split(",")
+    pcSet = [];
+    for (index=0; index < inputArray.length; index++){
+        pcSet[index] = Number(inputArray[index]);
+    }
+    return pcSet;
+}
+
+function businessLogic(pcSet){
+    return rotate(pcSet, 1);
 }
 
 function getResult(){
-    this.output.value = businessLogic(
+    this.output.value = businessLogic(prepare(
         this.input.value
-        )
+        ));
 }

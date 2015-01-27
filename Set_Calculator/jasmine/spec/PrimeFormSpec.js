@@ -23,15 +23,20 @@ describe("Prime Form Calculator", function() {
     });
     it("expects tiebreaker to work", function() {
         expect(tiebreaker([[0,4,6,8],[4,6,8,12]], 4)).toEqual([4,6,8,12]); 
-    });        
-    // it("expects findPrimeForm to work", function() {
-        // // expect(findPrimeForm([0,3,4])).toEqual([0,1,4]);
-    // });    
-    // it("", function() {
-        // expect().toEqual()
+    });       
+    // it("expects findNormalForm to work", function() {
+         // expect(true).toBe(true);
+         // expect(findNormalForm([0,4,6,8])).toEqual([4,6,8,12]);
+    // });
+  
+
+    it("expects findPrimeForm to work", function() {
+        expect(findPrimeForm([0,3,4])).toEqual([0,1,4]);
+    });    
+
     // });        
     // it("", function() {
-        // expect().toEqual()
+        // expect().toEqual();
     // it("", function() {
     // }); 
-});
+ });  

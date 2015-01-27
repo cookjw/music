@@ -110,16 +110,18 @@ function tiebreaker(candidateList, cardinality){
 function findNormalForm(pcSet){
     var pcSet = removeDuplicates(pcSet).sort();
     var rotations = [];
-    for (var i; i < pcSet.length; i++){
+    for (var i=0; i < pcSet.length; i++){
         rotations.push(rotate(pcSet, i));
     } 
     var distances = [];
-    for (pcSet in rotations){
+    for (var index in rotations){
+        var pcSet = rotations[index];
         distances.push(distance(pcSet));
     }    
     var minimumDistance = Math.min.apply(null, distances);
     var rotationArray = [];
-    for (rotation in rotations){
+    for (var index in rotations){
+        var rotation = rotations[index];
         if (distance(rotation) === minimumDistance){
             rotationArray.push(rotation) ;
         };
@@ -131,7 +133,8 @@ function findNormalForm(pcSet){
         var normalForm = tiebreaker(minimumDistanceList, pcSet.length) ;
     }
     var normalFormFromZero = [];
-    for (var x in normalForm){
+    for (var index in normalForm){
+        var x = normalForm[index];
         normalFormFromZero.push(normalMod(x - normalForm[0], 12));
     }
     return normalFormFromZero;
@@ -140,14 +143,16 @@ function findNormalForm(pcSet){
 function findPrimeForm(pcSet){
     var pcSet = findNormalForm(pcSet);
     inverses = [];
-    for (var x in pcSet){
+    for (var index in pcSet){
+        var x = pcSet[index];
         inverses.push(normalMod(0 - x, 12));
     }
     var inversion = findNormalForm(inverses);
     var candidates = [pcSet, inversion];
     var canDistances = [distance(pcSet), distance(inversion)];
     var minimumDistanceList = [];
-    for (var candidate in candidates){
+    for (var index in candidates){
+        var candidate = candidates[index];
         if(distance(candidate)=== Math.min.apply(null, canDistances)){
             minimumDistanceList.push(candidate);
         }

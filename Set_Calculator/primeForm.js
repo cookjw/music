@@ -1,3 +1,70 @@
+// attach the .equals method to Array's prototype to call it on any array
+// (credit: http://stackoverflow.com/questions/7837456/comparing-two-arrays-in-javascript )
+// Array.prototype.equals = function (array) {
+    // // if the other array is a falsy value, return
+    // if (!array)
+        // return false;
+
+    // // compare lengths - can save a lot of time 
+    // if (this.length != array.length)
+        // return false;
+
+    // for (var i = 0, l=this.length; i < l; i++) {
+        // // Check if we have nested arrays
+        // if (this[i] instanceof Array && array[i] instanceof Array) {
+            // // recurse into the nested arrays
+            // if (!this[i].equals(array[i]))
+                // return false;       
+        // }           
+        // else if (this[i] != array[i]) { 
+            // // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            // return false;   
+        // }           
+    // }       
+    // return true;
+// }  
+
+// "Prototyping" (monkeypatching the built-in class) didn't work, because it made it think every array
+// had an "equals" attribute to be inspected every time the array was looped through; otherwise the
+// logic of the function below is the same.
+
+function equals (firstArray, secondArray) {
+    if (!secondArray){
+        return false;
+        }
+        
+    if (firstArray.length != secondArray.length) {
+        return false;
+    }
+    var l = firstArray.length;
+    for (var i = 0;  i < l; i++) {
+        if (firstArray[i] instanceof Array && secondArray[i] instanceof Array) {
+            if (!equals(firstArray[i], secondarray[i])){
+                return false;
+            }
+        }
+        else if (firstArray[i] != secondArray[i]) {
+                return false
+            }
+        }        
+    return true;
+}
+
+function arrayContains(array, value) {
+    for (var index in array){
+        item = array[index];
+        if (item === value) {
+            return true;
+        } else if (item instanceof Array){
+            if (equals(item,value)){
+                return true;
+        }    
+        }
+    }
+    return false;
+}
+
+
 
 function normalMod(number, modulus){
     if(number >= 0){
@@ -13,6 +80,7 @@ function normalMod(number, modulus){
 function copy(list){
     var newList = []
     for (index in list){
+        console.log("I'm going to push item # ".concat(index.toString()));
         newList.push(list[index]);
     }
     return newList;
@@ -20,11 +88,25 @@ function copy(list){
 
 function removeDuplicates(list){
     var newList = [];
+    console.log("removeDuplicates is now being applied to the list:");
+    console.log(list.toString());
     for (index in list){
-        if ($.inArray(list[index], newList) === -1){
+        // console.log($.inArray(1,[1,2,3]) === -1);
+        // console.log("array contains item I'm looking at:");
+        // console.log(arrayContains(newList, list[index]));
+        // console.log("list[index]");
+        // console.log(list[index].toString());
+        // console.log("newList");
+        // console.log(newList.toString());
+        var item = list[index];
+        console.log("I'm checking whether ".concat(item.toString()).concat( "is duplicated in the list"));
+        if (!(arrayContains(newList, list[index]))){
+            console.log("I didn't find ".concat(list[index].toString()).concat(" in ").concat(newList.toString()));
             newList.push(list[index]);        
         }
     }
+    console.log("the resulting duplicate-free list is now being returned:");
+    console.log(newList.toString());
     return newList;
 }
 
@@ -100,6 +182,7 @@ function tiebreaker(candidateList, cardinality){
         // console.log(list.toString());
         // console.log(candidates.toString());
         n+=1
+        console.log(n.toString());
         if (n > cardinality){
             throw "the variable n has gotten larger than it was supposed to." ;
         }
@@ -108,11 +191,13 @@ function tiebreaker(candidateList, cardinality){
 }
 
 function findNormalForm(pcSet){
-    var pcSet = removeDuplicates(pcSet).sort();
-    var rotations = [];
+    var pcSet = removeDuplicates(pcSet).sort(function(a, b){return a-b});
+    console.log(pcSet.toString());
+    var rotations = [];    
     for (var i=0; i < pcSet.length; i++){
         rotations.push(rotate(pcSet, i));
     } 
+    console.log(rotations.toString());
     var distances = [];
     for (var index in rotations){
         var pcSet = rotations[index];
@@ -127,6 +212,7 @@ function findNormalForm(pcSet){
         };
     };
     var minimumDistanceList = removeDuplicates(rotationArray);
+    console.log(minimumDistanceList.toString());
     if (minimumDistanceList.length === 1) {
         var normalForm = minimumDistanceList[0] ;
     } else {
@@ -147,8 +233,12 @@ function findPrimeForm(pcSet){
         var x = pcSet[index];
         inverses.push(normalMod(0 - x, 12));
     }
+    console.log(inverses.toString());
     var inversion = findNormalForm(inverses);
+    console.log(inversion.toString());
     var candidates = [pcSet, inversion];
+    console.log("candidates:");
+    console.log(candidates.toString());
     var canDistances = [distance(pcSet), distance(inversion)];
     var minimumDistanceList = [];
     for (var index in candidates){
@@ -158,6 +248,7 @@ function findPrimeForm(pcSet){
         }
     }
     var minimumDistanceList = removeDuplicates(minimumDistanceList);
+    console.log(minimumDistanceList.toString());
     primeForm = tiebreaker(minimumDistanceList, pcSet.length);
     return primeForm;
     
@@ -172,12 +263,12 @@ function prepare(input){
     return pcSet;
 }
 
-// function businessLogic(pcSet){
-    // return rotate(pcSet, 1);
-// }
-
 function getResult(){
+    console.log("OK! Let's get started");
     this.output.value = findPrimeForm(prepare(
         this.input.value
         ));
 }
+
+
+

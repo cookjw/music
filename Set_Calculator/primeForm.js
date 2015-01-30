@@ -79,41 +79,24 @@ function normalMod(number, modulus){
 
 function copy(list){
     var newList = []
-    for (index in list){
-        console.log("I'm going to push item # ".concat(index.toString()));
+    for (index in list){        
         newList.push(list[index]);
     }
     return newList;
 }
 
 function removeDuplicates(list){
-    var newList = [];
-    console.log("removeDuplicates is now being applied to the list:");
-    console.log(list.toString());
-    for (index in list){
-        // console.log($.inArray(1,[1,2,3]) === -1);
-        // console.log("array contains item I'm looking at:");
-        // console.log(arrayContains(newList, list[index]));
-        // console.log("list[index]");
-        // console.log(list[index].toString());
-        // console.log("newList");
-        // console.log(newList.toString());
-        var item = list[index];
-        console.log("I'm checking whether ".concat(item.toString()).concat( "is duplicated in the list"));
-        if (!(arrayContains(newList, list[index]))){
-            console.log("I didn't find ".concat(list[index].toString()).concat(" in ").concat(newList.toString()));
+    var newList = [];      
+    for (index in list){ 
+        var item = list[index];        
+        if (!(arrayContains(newList, list[index]))){            
             newList.push(list[index]);        
         }
     }
-    console.log("the resulting duplicate-free list is now being returned:");
-    console.log(newList.toString());
     return newList;
 }
 
-// function copy(content){
-    // var j = document.getElementById("output");
-    // j.value = content;    
-// }
+
 
 function rotate(pcSet, number){
     return pcSet.slice(number).concat(pcSet.slice(0, number)) ;
@@ -124,65 +107,26 @@ function distance(pcSet){
 }
 
 function tiebreaker(candidateList, cardinality){
-    // console.log("candidateList: ");
-    // console.log(candidateList);
-    // console.log(candidateList[0]);
-    // return candidateList[0];
+
     var n = 2;
     var list = candidateList;
-    // console.log("list: ");
-    // console.log(list);
-    // console.log(list.length);
-    while (list.length > 1){
-        // console.log("distanceArray");
-        // console.log(blah);
-        var distanceArray = [];
-        // console.log(distanceArray === []);
-        // console.log(distanceArray === [4,2]);
-        // console.log("distanceArray:");        
-        // console.log(distanceArray.toString());
 
+    while (list.length > 1){
+        var distanceArray = [];
         for (var index in list){
-            // console.log(distance(pcSet.slice(0, n)))
-                       
-            // console.log("index: ");
-            // console.log(index);
             pcSet = list[index];
-            // console.log("pcSet: ");
-            // console.log(pcSet);
-            // console.log("pcSet slice: ");
-            // console.log(pcSet.slice(0, n));
-            // console.log("distance(pcSet slice)");
-            // console.log(distance(pcSet.slice(0, n)));
-            // // console.log("distanceArray:");
-            // // console.log(distanceArray.toString());
             distanceArray.push(distance(pcSet.slice(0, n)));
-            // // console.log(distanceArray.toString());
-            // console.log("distanceArray:");
-            // console.log(distanceArray.toString());
-            // console.log(index);
         }
         dAMin = Math.min.apply(null, distanceArray);
-        // console.log(dAMin);
         var candidates = [];
         for (index in list){
             candidate = list[index];
-            // console.log(distance(candidate.slice(0,n))===dAMin);
-            // console.log(candidate.slice(0,n));
-            // console.log(distance(candidate.slice(0,n)));
-            // console.log(dAMin);
             if (distance(candidate.slice(0,n)) === dAMin){
                 candidates.push(candidate);
-                // console.log(candidate.toString());
-                // console.log(candidates.toString());
             }
         }
-        // console.log(candidates.toString());
         list = removeDuplicates(candidates);
-        // console.log(list.toString());
-        // console.log(candidates.toString());
-        n+=1
-        console.log(n.toString());
+        n+=1        
         if (n > cardinality){
             throw "the variable n has gotten larger than it was supposed to." ;
         }
@@ -192,12 +136,10 @@ function tiebreaker(candidateList, cardinality){
 
 function findNormalForm(pcSet){
     var pcSet = removeDuplicates(pcSet).sort(function(a, b){return a-b});
-    console.log(pcSet.toString());
     var rotations = [];    
     for (var i=0; i < pcSet.length; i++){
         rotations.push(rotate(pcSet, i));
     } 
-    console.log(rotations.toString());
     var distances = [];
     for (var index in rotations){
         var pcSet = rotations[index];
@@ -211,8 +153,7 @@ function findNormalForm(pcSet){
             rotationArray.push(rotation) ;
         };
     };
-    var minimumDistanceList = removeDuplicates(rotationArray);
-    console.log(minimumDistanceList.toString());
+    var minimumDistanceList = removeDuplicates(rotationArray);    
     if (minimumDistanceList.length === 1) {
         var normalForm = minimumDistanceList[0] ;
     } else {
@@ -233,12 +174,9 @@ function findPrimeForm(pcSet){
         var x = pcSet[index];
         inverses.push(normalMod(0 - x, 12));
     }
-    console.log(inverses.toString());
-    var inversion = findNormalForm(inverses);
-    console.log(inversion.toString());
+    
+    var inversion = findNormalForm(inverses);    
     var candidates = [pcSet, inversion];
-    console.log("candidates:");
-    console.log(candidates.toString());
     var canDistances = [distance(pcSet), distance(inversion)];
     var minimumDistanceList = [];
     for (var index in candidates){
@@ -247,8 +185,7 @@ function findPrimeForm(pcSet){
             minimumDistanceList.push(candidate);
         }
     }
-    var minimumDistanceList = removeDuplicates(minimumDistanceList);
-    console.log(minimumDistanceList.toString());
+    var minimumDistanceList = removeDuplicates(minimumDistanceList);    
     primeForm = tiebreaker(minimumDistanceList, pcSet.length);
     return primeForm;
     
@@ -263,8 +200,7 @@ function prepare(input){
     return pcSet;
 }
 
-function getResult(){
-    console.log("OK! Let's get started");
+function getResult(){    
     this.output.value = findPrimeForm(prepare(
         this.input.value
         ));

@@ -5,6 +5,8 @@
 #prime form of a pitch-class set. See e.g.
 #http://composertools.com/Theory/PCSets/PCSets3.htm.
 
+#TODO: also implement Rahn-Morris algorithm
+
 
 
 def remove_duplicates(list): # Shouldn't this be built in?

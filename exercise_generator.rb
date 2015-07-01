@@ -54,7 +54,7 @@ instrument_list = ["Piccolo", "Flute", "Alto Flute", "Oboe", "English Horn",
                   "Bassoon", "Contrabassoon", "Horn", "Trumpet", "Trombone",
                   "Euphonium", "Tuba", "Glockenspiel", "Xylophone", "Marimba",
                   "Celesta", "Harp", "Piano (R.H.)", "Piano (L.H.)",
-                  "Guitar", "Mandolin", "Lute", "Ukelele",
+                  "Guitar", "Mandolin", "Ukelele",
                   "Soprano Voice", "Alto Voice", "Tenor Voice", "Bass Voice",
                   "Violin", "Viola", "Violoncello", "Double Bass"]
 events = rand(10...100).to_s

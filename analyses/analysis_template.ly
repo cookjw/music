@@ -10,7 +10,9 @@
     \override Staff.TimeSignature.stencil = ##f 
     \override Staff.Rest.style = #'classical
     
-    a'\( (b') c''\) r4 \bar "|."
+    a'\( (b')
+    \mark \markup { \box "29" }
+    c''\) r4 \bar "|."
 } 
 \new Staff {
   \override Stem #'transparent = ##t

@@ -1,11 +1,8 @@
 # (Ruby version of exercise_generator.py)
 
 # This program automatically generates parameters for compositional 
-# exercises of a type I invented in late 2012. These exercises may be
-# thought of as a modern analogue of species counterpoint, 
-# and allow one to practice thinking in terms of my musical theory
-# (itself invented simultaneously in late 2012). Integral to their 
-# nature, however, is the randomness of the parameters generated for 
+# exercises of a type I invented in late 2012. Integral to their 
+# nature is the randomness of the parameters generated for 
 # each new exercise: the intention is that the composer be forced to
 # confront novel compositional situations outside of his or her 
 # "typical" experience, and thereby be stimulated to develop a 
@@ -48,16 +45,18 @@ pcs = {0 => ["B#", "C"], 1 => ["C#", "Db"], 2 => ["D"], 3 => ["D#", "Eb"],
            8 => ["G#", "Ab"] , 9 => ["A"] , 
            10 => ["A#", "Bb"] , 11 => ["B", "Cb"] }  
 modes = ["major", "minor"]
+span_types = ["open", "closed"]
 instrument_list = ["Piccolo", "Flute", "Alto Flute", "Oboe", "English Horn", 
                   "Eb Clarinet", "Bb (or A) Clarinet", "Alto Clarinet",
                   "Bass Clarinet",
                   "Bassoon", "Contrabassoon", "Horn", "Trumpet", "Trombone",
                   "Euphonium", "Tuba", "Glockenspiel", "Xylophone", "Marimba",
                   "Celesta", "Harp", "Piano (R.H.)", "Piano (L.H.)",
-                  "Guitar", "Mandolin", "Ukelele",
+                  "Guitar",
                   "Soprano Voice", "Alto Voice", "Tenor Voice", "Bass Voice",
                   "Violin", "Viola", "Violoncello", "Double Bass"]
-events = rand(10...100).to_s
+#events = rand(10...100).to_s
+tempo = rand(40...150).to_s
 beats = rand(10...30).to_s
 textural_lines = rand(1...10).to_s
 instruments = rand(1...10)
@@ -69,8 +68,9 @@ mode = modes.sample
 
 now = Time.now.strftime("%Y-%m-%d %H:%M:%S")
 
-output = "Composition Exercise Parameters, generated #{now}         
-         Events: #{events}
+output = "Composition Exercise Parameters (v. 2.0), generated #{now} 
+         
+         Tempo: #{tempo}
          Beats: #{beats}
          Textural Lines: #{textural_lines}
          Instruments in Ensemble: #{ensemble}
